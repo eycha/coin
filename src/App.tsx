@@ -60,6 +60,7 @@ body {
 }
 a {
   text-text-decoration:none;
+  color:inherit;
 }
   `;
 
