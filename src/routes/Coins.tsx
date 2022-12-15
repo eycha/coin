@@ -69,7 +69,9 @@ function Coins() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
-      const response = await fetch("https://api.coinpaprika.com/v1/coins");
+      const response = await fetch(
+        "https://api.coinpaprika.com/v1/coins"
+      );
       const json = await response.json();
       setCoins(json.slice(0, 100));
       setLoading(false);
@@ -88,7 +90,7 @@ function Coins() {
         <CoinList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+              <Link to={`/${coin.id}`} state={{name: coin.name}}>
                 <Img
                   src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
                 ></Img>
