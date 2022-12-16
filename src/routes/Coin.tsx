@@ -1,7 +1,9 @@
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { useLocation, Routes} from "react-router-dom";
+import { useLocation, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+import Chart from "./Chart";
+import Price from "./Price";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -134,8 +136,6 @@ function Coin() {
     })();
   }, [coinId]);
 
-  
-
   return (
     <Container>
       <Header>
@@ -173,7 +173,8 @@ function Coin() {
             </OverviewItem>
           </Overview>
           <Routes>
-            
+            <Route path={"price"} element={<Price />}></Route>
+            <Route path={"chart"} element={<Chart />}></Route>
           </Routes>
         </>
       )}
