@@ -1,9 +1,5 @@
-import { findByLabelText } from "@testing-library/react";
 import styled from "styled-components";
-import { createSolutionBuilder } from "typescript";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { load } from "dotenv";
 import { useQuery } from "react-query";
 import { fetchCoins } from "../api";
 
