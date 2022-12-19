@@ -5,13 +5,13 @@ import {
   Route,
   useMatch,
   Link,
-  Outlet
 } from "react-router-dom";
 import styled from "styled-components";
 import {useQuery} from "react-query";
 import Chart from "./Chart";
 import Price from "./Price";
 import { fetchCoinInfo, fetchCoinTickers } from "../api"
+
 
 const Title = styled.h1`
   font-size: 48px;
@@ -155,7 +155,14 @@ function Coin() {
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
   const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId))
-  const {isLoading: tickersLoading, data: tickerData} = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId));
+  const { isLoading: tickersLoading, data: tickerData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId),
+    {
+      refetchInterval: 5000,
+    }
+  );
+ 
+  
+
  
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<InfoData>();
@@ -198,8 +205,8 @@ function Coin() {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span>Price:</span>
+              <span>$ {tickerData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
@@ -222,8 +229,11 @@ function Coin() {
             </Tab>
           </Tabs>
           <Routes>
-              <Route path={"price"} element={<Price />}></Route>
-              <Route path={"chart"} element={<Chart coinId={coinId as string} />}></Route>    
+            <Route path={"price"} element={<Price />}></Route>
+            <Route
+              path={"chart"}
+              element={<Chart coinId={coinId as string} />}
+            ></Route>
           </Routes>
         </>
       )}
