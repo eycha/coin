@@ -1,17 +1,10 @@
 import { useParams } from "react-router";
-import {
-  useLocation,
-  Routes,
-  Route,
-  useMatch,
-  Link,
-} from "react-router-dom";
+import { useLocation, Routes, Route, useMatch, Link } from "react-router-dom";
 import styled from "styled-components";
-import {useQuery} from "react-query";
+import { useQuery } from "react-query";
 import Chart from "./Chart";
 import Price from "./Price";
-import { fetchCoinInfo, fetchCoinTickers } from "../api"
-
+import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -65,7 +58,7 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 
-const Tab = styled.span<{isActive: boolean}>`
+const Tab = styled.span<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
@@ -79,11 +72,6 @@ const Tab = styled.span<{isActive: boolean}>`
     display: block;
   }
 `;
-
-
-
-
-
 
 interface RouteParams {
   coinId: string;
@@ -149,21 +137,25 @@ interface PriceData {
     };
   };
 }
+interface ICoinProps {}
+
 function Coin() {
   const { coinId } = useParams() as unknown as RouteParams;
   const { state } = useLocation() as RouteState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
-  const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId))
-  const { isLoading: tickersLoading, data: tickerData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId),
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
+    ["info", coinId],
+    () => fetchCoinInfo(coinId)
+  );
+  const { isLoading: tickersLoading, data: tickerData } = useQuery<PriceData>(
+    ["tickers", coinId],
+    () => fetchCoinTickers(coinId),
     {
       refetchInterval: 5000,
     }
   );
- 
-  
 
- 
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<InfoData>();
   // const [priceInfo, setPriceInfo] = useState<PriceData>();
