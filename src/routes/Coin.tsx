@@ -3,7 +3,7 @@ import { useLocation, Routes, Route, useMatch, Link } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import Chart from "./Chart";
-import Price from "./Price";
+// import Price from "./Price";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 const Title = styled.h1`
@@ -156,24 +156,6 @@ function Coin() {
     }
   );
 
-  // const [loading, setLoading] = useState(true);
-  // const [info, setInfo] = useState<InfoData>();
-  // const [priceInfo, setPriceInfo] = useState<PriceData>();
-  // useEffect(() => {
-  //   (async () => {
-  //     const infoData = await (
-  //       await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-  //     ).json();
-
-  //     const priceData = await (
-  //       await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-  //     ).json();
-
-  //     setInfo(infoData);
-  //     setPriceInfo(priceData);
-  //     setLoading(false);
-  //   })();
-  // }, [coinId]);
   const loading = infoLoading || tickersLoading;
 
   return (
@@ -216,12 +198,8 @@ function Coin() {
             <Tab isActive={chartMatch !== null}>
               <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
-            <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
-            </Tab>
           </Tabs>
           <Routes>
-            <Route path={"price"} element={<Price />}></Route>
             <Route
               path={"chart"}
               element={<Chart coinId={coinId as string} />}
